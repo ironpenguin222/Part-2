@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Plane : MonoBehaviour
@@ -14,6 +15,8 @@ public class Plane : MonoBehaviour
     public float speed = 1;
     public AnimationCurve landing;
     public float landingTimer;
+    public float tooClose;
+    private float planesInRange;
 
     private void Start()
     {
@@ -33,10 +36,41 @@ public class Plane : MonoBehaviour
         }
         rb.MovePosition(rb.position + (Vector2)transform.up * speed * Time.deltaTime);
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        planesInRange++;
+            CheckPlane(other);
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        planesInRange--;
+
+        if (planesInRange == 0)
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
+       
+    }
+
+
+    private void CheckPlane(Collider2D other)
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
+
+        float distance = Vector3.Distance(transform.position, other.transform.position);
+
+        if (distance < tooClose)
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+    }
 
     private void Update()
     {
-
+       
         if(Input.GetKey(KeyCode.Space))
         {
             landingTimer += 0.2f * Time.deltaTime;
@@ -88,5 +122,10 @@ public class Plane : MonoBehaviour
         }
      
     }
+ 
 
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
