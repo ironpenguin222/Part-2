@@ -18,8 +18,10 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player")) {
         collision.gameObject.SendMessage("TakeDamage", 1);
         Destroy(gameObject);
+    }
     }
 
     private void DestroyWeapon()
