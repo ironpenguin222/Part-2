@@ -74,4 +74,9 @@ public class Knight : MonoBehaviour
             anim.SetTrigger("TakeDamage");
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        anim.SetTrigger("death");
+        isDead = true;
+    }
 }
