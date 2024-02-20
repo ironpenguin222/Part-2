@@ -11,8 +11,27 @@ public class PlayerMover : MonoBehaviour
     private Vector2 destination;
     public float speed = 3;
     public float minDistance = 0.1f; // Stops the player from vibrating by making the player have a minimum amount of distance needed
+    public float minX = -10f;
+    public float maxX = 10f;
+    public float minY = -10f;
+    public float maxY = 10f;
+    public float health = 5f;
+    public float maxHealth = 5f;
 
-    void Start()
+
+    public void Damage(float damage)
+    {
+        Debug.Log("Hi");
+        health -= damage;
+        health = Mathf.Clamp(health, 0, maxHealth);
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+        void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -41,11 +60,10 @@ public class PlayerMover : MonoBehaviour
     {
 
         // Takes position of mouse to make destination
-
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            destination = new Vector2(mousePosition.x, mousePosition.y);
+            destination = new Vector2(Mathf.Clamp(mousePosition.x, minX, maxX), Mathf.Clamp(mousePosition.y, minY, maxY));
         }
     }
 
