@@ -29,7 +29,7 @@ public class EnemySpawn : MonoBehaviour
             // Spawn enemy at a random position around the player
             SpawnEnemy();
             timer = 0f;
-            currentSpawnTime = Mathf.Max(minSpawnTime, currentSpawnTime - 0.1f);
+            currentSpawnTime = Mathf.Max(minSpawnTime, currentSpawnTime - 0.18f);
         }
     }
 

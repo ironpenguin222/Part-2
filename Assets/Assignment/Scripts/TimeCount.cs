@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class TimeCount : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class TimeCount : MonoBehaviour
     void Start()
     {
         currentValue = 0f;
+        ResetPlayerPrefs();
     }
 
     void Update()
@@ -25,4 +27,22 @@ public class TimeCount : MonoBehaviour
         // Update the TextMeshPro text
         timer.text = "Time: " + Mathf.Round(currentValue).ToString();
     }
+        public static void ResetPlayerPrefs()
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            Debug.Log("PlayerPrefs reset");
+        }
+
+        private void GameOver()
+    {
+        // Capture the game end time
+        float gameEndTime = Time.time;
+
+        // Save the game end time to PlayerPrefs
+        PlayerPrefs.SetFloat("GameEndTime", gameEndTime);
+        PlayerPrefs.Save();
+
+    }
+
 }

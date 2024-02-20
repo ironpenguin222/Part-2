@@ -21,9 +21,9 @@ public class BulletSpawner : MonoBehaviour
         currentSpawnTime = initialSpawnTime;
     }
 
-    // Timer
     void Update()
     {
+        // Timer
         timer += Time.deltaTime;
 
         if (timer >= currentSpawnTime)

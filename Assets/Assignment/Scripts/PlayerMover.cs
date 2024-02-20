@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMover : MonoBehaviour
 {
@@ -21,13 +22,18 @@ public class PlayerMover : MonoBehaviour
 
     public void Damage(float damage)
     {
-        Debug.Log("Hi");
+        Debug.Log("Player Hit");
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
 
         if(health <= 0)
         {
-            Destroy(gameObject);
+            
+          int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+          int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+          SendMessage("GameOver", 1);
+          SceneManager.LoadScene(nextSceneIndex);
+            
         }
 
     }
