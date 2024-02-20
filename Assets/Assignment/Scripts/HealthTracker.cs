@@ -10,6 +10,7 @@ public class HealthTracker : MonoBehaviour
 
     public void Damage(float damage)
     {
+        // Updates health bar UI when player gets hit
         bar.value -= damage;
     }
 }

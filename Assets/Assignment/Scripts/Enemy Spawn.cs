@@ -7,23 +7,29 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour
 {
     public GameObject Ghost;
-    public float spawnInterval = 5f;
+    public float initialSpawnTime = 5f;
     public float spawnRadius = 5f;
+    public float minSpawnTime = 1f;
+    private float currentSpawnTime;
     private float timer;
 
+
+    private void Start()
+    {
+        currentSpawnTime = initialSpawnTime;
+    }
     void Update()
     {
         // Timer
         timer += Time.deltaTime;
 
         // Check if it's time to spawn a new enemy
-        if (timer >= spawnInterval)
+        if (timer >= currentSpawnTime)
         {
             // Spawn enemy at a random position around the player
             SpawnEnemy();
-
-
             timer = 0f;
+            currentSpawnTime = Mathf.Max(minSpawnTime, currentSpawnTime - 0.1f);
         }
     }
 

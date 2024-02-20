@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
 {
     public Transform player;
     public float chaseSpeed = 3f;
+    public float rotationSpeed = 5f;
+
 
     private void Start()
     {
@@ -18,17 +20,20 @@ public class Enemy : MonoBehaviour
     void Update()
     {
 
-            // Calculate the direction towards the player
-            Vector3 directionToPlayer = player.position - transform.position;
+        // Calculate the direction towards the player
+        Vector3 directionToPlayer = player.position - transform.position;
 
-            // Normalize the direction to get a unit vector
-            Vector3 normalizedDirection = directionToPlayer.normalized;
+        // Calculate the rotation to face the player
+        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, directionToPlayer);
 
-            // Move towards the player at a constant speed
-            transform.Translate(normalizedDirection * chaseSpeed * Time.deltaTime);
+        // Gradually rotate towards the player
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
-            
-        
+        // Move towards the player
+        transform.Translate(Vector3.up * chaseSpeed * Time.deltaTime);
+
+
+
     }
     void OnTriggerEnter2D(Collider2D other)
     {
