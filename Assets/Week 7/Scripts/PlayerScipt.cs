@@ -9,10 +9,13 @@ public class PlayerScipt : MonoBehaviour
 {
     bool isSelected = false;
     public SpriteRenderer spriteRenderer;
+    public Rigidbody2D rb;
+    public float speed = 100;
     // Start is called before the first frame update
     void Start()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         Selected(false);
     }
 
@@ -34,8 +37,9 @@ public class PlayerScipt : MonoBehaviour
             spriteRenderer.color = Color.magenta;
         }
     }
-  
-    void Update()
+
+    public void Move(Vector2 direction)
     {
+      rb.AddForce(direction * speed, ForceMode2D.Impulse);
     }
 }

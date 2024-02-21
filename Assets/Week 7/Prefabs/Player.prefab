@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1677490391094577897}
+  rb: {fileID: 7830502064917413630}
+  speed: 10
 --- !u!1 &8942461713953280427
 GameObject:
   m_ObjectHideFlags: 0
