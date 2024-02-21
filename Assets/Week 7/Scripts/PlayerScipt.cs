@@ -13,16 +13,16 @@ public class PlayerScipt : MonoBehaviour
     void Start()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Selected(false);
     }
 
     private void OnMouseDown()
     {
-        isSelected = true;
-        Selected();
+        Contoller.SetCurrentSelection(this);
     }
 
 
-    public void Selected()
+    public void Selected(bool isSelected)
     {
         if (isSelected == true)
         {
